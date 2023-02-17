@@ -36,7 +36,7 @@ class Booking(models.Model):
         return self.email, self.booking_time, self.number_of_guests
 
 
-class Reviews(models.Model):
+class Review(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=15)
     body = models.TextField()
@@ -47,4 +47,4 @@ class Reviews(models.Model):
         ordering = ['created_on']
 
     def __str__(self):
-        return f"Comment {self.body} by {self.fname}"
+        return f"Comment {self.body} by {self.name}"
