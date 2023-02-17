@@ -7,9 +7,23 @@ GUESTS = ((2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), ('More', '8+')
 STATUS = ((0, "Draft"), (1, "Published"))
 
 
+class Meal(models.Model):
+    title = models.CharField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, unique=True)
+    content = models.TextField()
+    featured_image = CloudinaryField('image', default='placeholder')
+    status = models.IntegerField(choices=STATUS, default=0)
+    created_on = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='dish_likes', blank=True)
+
+    class Meta:
+
+        ordering = ['-created_on']
+
+
 class Booking(models.Model):
-    fname = models.CharField(max_length=15)
-    lname = models.CharField(max_length=15)
+    first_name = models.CharField(max_length=15)
+    last_name = models.CharField(max_length=15)
     email = models.EmailField()
     booking_time = models.DateTimeField()
     number_of_guests = models.IntegerField(choices=GUESTS, default=2)
@@ -24,7 +38,7 @@ class Booking(models.Model):
 
 class Reviews(models.Model):
     email = models.EmailField()
-    fname = models.CharField(max_length=15)
+    name = models.CharField(max_length=15)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now=True)
     approved = models.BooleanField(default=0)
