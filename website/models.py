@@ -12,6 +12,7 @@ class Meal(models.Model):
     slug = models.SlugField(max_length=30, unique=True)
     content = models.TextField()
     featured_image = CloudinaryField('image', default='placeholder')
+    excerpt = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='dish_likes', blank=True)
